@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/khubo/rpi-server/mouse"
 	"gopkg.in/olahol/melody.v1"
 )
 
@@ -23,6 +24,13 @@ func New() *melody.Melody {
 	m.HandleMessage(func(s *melody.Session, msg []byte) {
 		var action Action
 		json.Unmarshal(msg, &action)
+
+		switch action.Device {
+		case "mouse":
+			mouse.Handler(mouse.Action{action.ActionType, action.X, action.Y})
+		default:
+			fmt.Println("invalid action")
+		}
 	})
 
 	return m

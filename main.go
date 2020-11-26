@@ -8,6 +8,7 @@ import (
 func main() {
 	r := gin.Default()
 	m := handler.New()
+
 	r.GET("/ws", func(c *gin.Context) {
 		m.HandleRequest(c.Writer, c.Request)
 	})
