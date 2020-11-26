@@ -25,6 +25,7 @@ func New() *melody.Melody {
 		var action Action
 		json.Unmarshal(msg, &action)
 
+		fmt.Println("action is", action.Device)
 		switch action.Device {
 		case "mouse":
 			mouse.Handler(mouse.Action{action.ActionType, action.X, action.Y})
